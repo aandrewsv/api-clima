@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather API</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('form').submit(function() {
+                let j = $('#input').val();
+                $.get('http://api.openweathermap.org/data/2.5/weather?q='+j+'&&appid=037761830af6c7e61e5c518c7e6df5b4', function(res) {
+                    var html_str = "";
+                    html_str += "<h2>"+res.name+": "+res.weather[0].description+"</h2>";
+                    html_str += "<h2>Temperatura: "+res.main.temp+"</h3>";
+                    html_str += "<h2>Coordenadas: "+res.coord.lon+" - "+res.coord.lat+"</h3>";
+                    $(".result").html(html_str);
+                }, 'json');
+                return false;
+            });
+        })
+    </script>
+</head>
+<body>
+    <h1>Weather API</h1>
+        <p>City:</p>
+        <form action="">
+            <div>
+                <input type="text" id="input">
+                <input type="submit">
+            </div>
+        </form>
+        <div class="result"></div>
+</body>
+</html>
